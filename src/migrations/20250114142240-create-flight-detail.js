@@ -14,10 +14,10 @@ module.exports = {
         allowNull: false,
       },
       airplaneId: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.STRING,
         allowNull: false,
         references: {
-          model: "airplanes",
+          model: "Airplanes",
           key: "id",
         },
         onDelete: "CASCADE",
@@ -26,7 +26,7 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
         references: {
-          model: "airports",
+          model: "Airports",
           key: "code",
         },
         onDelete: "CASCADE",
@@ -35,7 +35,7 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
         references: {
-          model: "airports",
+          model: "Airports",
           key: "code",
         },
         onDelete: "CASCADE",

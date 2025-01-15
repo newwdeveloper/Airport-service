@@ -50,14 +50,17 @@ class CrudRepository {
   async update(id, data) {
     // data -> {col: value, ....}
     try {
+      Logger.info("Updating record with ID:", id);
+      Logger.info("Data being updated:", data);
       const response = await this.model.update(data, {
         where: {
           id: id,
         },
       });
+      Logger.info("Update result:", response);
       return response;
     } catch (error) {
-      Logger.error("Something went wrong in the Crud Repo : get");
+      Logger.error("Something went wrong in the Crud Repo : update");
       throw error;
     }
   }
