@@ -71,6 +71,7 @@ async function getAllFlight(query) {
       customFilter,
       sortFilter
     );
+    console.log(flight);
     return flight;
   } catch (error) {
     if (error.name === "SequelizeValidationError") {
