@@ -25,5 +25,21 @@ async function createFlight(req, res) {
     return res.status(error.statusCode).json(ErrorResponse);
   }
 }
+async function getAllFlight(req, res) {
+  try {
+    const flight = await FlightService.getAllFlight(req.query);
+    if (!flight || flight.length === 0) {
+      return res.status(StatusCodes.NOT_FOUND).json({
+        message: "No flights match the query.",
+        data: [],
+      });
+    }
+    SuccessResponse.data = flight;
+    return res.status(StatusCodes.OK).json(SuccessResponse);
+  } catch (error) {
+    ErrorResponse.error = error;
+    return res.status(error.statusCode).json(ErrorResponse);
+  }
+}
 
-module.exports = { createFlight };
+module.exports = { createFlight, getAllFlight };
