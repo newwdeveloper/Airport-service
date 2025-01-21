@@ -88,8 +88,28 @@ async function getAllFlight(query) {
     );
   }
 }
+async function getFlight(id) {
+  try {
+    const flight = await flightRepository.get(id);
+    return flight;
+  } catch (error) {
+    if (error.name === "SequelizeValidationError") {
+      let explanation = [];
+      error.errors.forEach((err) => {
+        explanation.push(err.message);
+      });
+      throw new AppError(explanation, StatusCodes.BAD_REQUEST);
+    }
+    console.log(error);
+    throw new AppError(
+      "cannot get the desired flight details",
+      StatusCodes.INTERNAL_SERVER_ERROR
+    );
+  }
+}
 
 module.exports = {
   createFlight,
   getAllFlight,
+  getFlight,
 };
