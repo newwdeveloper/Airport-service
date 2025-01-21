@@ -30,10 +30,6 @@ function validateCreateRequest(req, res, next) {
     ErrorResponse.error = new AppError(missingFields, StatusCodes.BAD_REQUEST);
     return res.status(StatusCodes.BAD_REQUEST).json(ErrorResponse);
   }
-
-
-
-
   const { arrivalTime, departureTime } = req.body;
   if (!compareTime(arrivalTime, departureTime)) {
     ErrorResponse.message = "invalid time date";
@@ -47,4 +43,16 @@ function validateCreateRequest(req, res, next) {
   next();
 }
 
-module.exports = { validateCreateRequest };
+function validateUpdateSeatsRequest(req, res, next) {
+  if (!req.body.seats) {
+    ErrorResponse.message = "something went wrong while updating flights";
+    ErrorResponse.error = new AppError(
+      ["Seats not found in the incomming in the correct form"],
+      StatusCodes.BAD_REQUEST
+    );
+    return res.status(StatusCodes.BAD_REQUEST).json(ErrorResponse);
+  }
+  next();
+}
+
+module.exports = { validateCreateRequest, validateUpdateSeatsRequest };
